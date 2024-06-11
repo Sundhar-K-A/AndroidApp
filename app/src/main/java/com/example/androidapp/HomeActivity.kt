@@ -1,32 +1,30 @@
 package com.example.androidapp
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.TextView
+
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
+    private lateinit var homeTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
+
+        homeTextView = findViewById(R.id.tvWelcomeHome) // Initialize here
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
 
-    fun loginClick(view: View) {
-        Log.i("loginClick","loginClicked")
-        var hIntent: Intent = Intent(this,HomeActivity::class.java)
-        val data:TextView=findViewById(R.id.LoginUserName)
-        hIntent.putExtra("nkey",data.text.toString())
-        startActivity(hIntent)
+        val data = intent.extras?.getString("nkey")
+        homeTextView.text = "welcome $data"// Set text after initialization
     }
 }
