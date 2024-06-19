@@ -30,8 +30,12 @@ class WordsViewAdapter(var dataArray: Array<String>) : RecyclerView.Adapter<Word
     //chirag -- write the data on the row plank given by sundar
     override fun onBindViewHolder(holder: WordsViewHolder, position: Int) {
         Log.i(TAG,"chirag is writing --"+ dataArray[position]+"on the textview shown by sundar")
-        holder.tvRowItem.setText(dataArray[position])
-
+        holder.tvRowItem.text = dataArray[position]
+        holder.tvRowItem.isClickable = true
+        holder.tvRowItem.setOnClickListener {
+            Log.i(TAG,"chirag is writing --"+ dataArray[position]+"on the textview shown by sundar")
+            holder.tvRowItem.text = dataArray[position]
+        }
     }
 
     //sundhar -- maintain the reserve planks in the holder box
@@ -41,7 +45,6 @@ class WordsViewAdapter(var dataArray: Array<String>) : RecyclerView.Adapter<Word
 
         }
         var tvRowItem = itemView.findViewById<TextView>(R.id.tvRow)
-
     }
 
 }

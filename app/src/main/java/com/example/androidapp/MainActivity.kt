@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.androidapp.kotlinegs.LoginManager
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +25,14 @@ class MainActivity : AppCompatActivity() {
 
     fun loginClick(view: View) {
         Log.i("loginClick","loginClicked")
-        var hIntent: Intent = Intent(this,HomeActivity::class.java)
-        val data:TextView=findViewById(R.id.LoginUserName)
-        hIntent.putExtra("nkey",data.text.toString())
-        startActivity(hIntent)
+        var loginmanager:LoginManager=LoginManager()
+        var username:TextView=findViewById(R.id.LoginUserName)
+        var password:TextView=findViewById(R.id.editTextNumberPassword)
+        if(loginmanager.isValidLogin(username.text.toString(),password.text.toString())) {
+            var hIntent: Intent = Intent(this, HomeActivity::class.java)
+            val data: TextView = findViewById(R.id.LoginUserName)
+            hIntent.putExtra("nkey", data.text.toString())
+            startActivity(hIntent)
+        }
     }
 }
