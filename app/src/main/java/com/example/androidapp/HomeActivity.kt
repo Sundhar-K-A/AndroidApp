@@ -1,30 +1,40 @@
 package com.example.androidapp
 
+import MarsAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import com.example.androidapp.networks.MarsPhoto
+import okhttp3.Dispatcher
+import kotlinx.coroutines.Dispatchers
+
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var homeTextView: TextView
-    lateinit var myRecyclerView: RecyclerView
-    var dataArray= arrayOf("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+    lateinit var myMarsRecyclerView: RecyclerView
+    lateinit var marsAdapter: MarsAdapter
+    lateinit var photos:List<MarsPhoto>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
+        homeTextView = findViewById(R.id.tvWelcomeHome)//username importing
 
-        homeTextView = findViewById(R.id.tvWelcomeHome)
-
+        myMarsRecyclerView = findViewById(R.id.recyclerViewUrls)
+        myMarsRecyclerView.layoutManager = LinearLayoutManager(this)
+        photos = ArrayList()
+        marsAdapter = MarsAdapter(photos)
+        myMarsRecyclerView.adapter = marsAdapter
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -36,13 +46,19 @@ class HomeActivity : AppCompatActivity() {
         homeTextView.text = "welcome $data"//Welcome the user
     }
     private fun getMarsPhotos() {
-        GlobalScope.launch {
-            var jsonString =   MarsApi.retrofitService.getPhotos()
-            Log.i("homeactivity",jsonString)
+        GlobalScope.launch(Dispatchers.Main){
+            var listMarsPhotos =   MarsApi.retrofitService.getPhotos()
+            Log.i("Mars", listMarsPhotos.size.toString())
+//          photos = listMarsPhotos
+            marsAdapter.listMarsPhotos = listMarsPhotos
+            marsAdapter.notifyDataSetChanged()
+            Log.i("Mars",listMarsPhotos.size.toString())
+            Log.i("Mars-url",listMarsPhotos.get(1).imgSrc)
         }
     }
     fun getJson(view: View) {
         getMarsPhotos()
+
     }
 
 }
