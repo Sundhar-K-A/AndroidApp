@@ -1,6 +1,7 @@
 package com.example.androidapp
 
 import MarsAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidapp.kotlinegs.LoginManager
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import com.example.androidapp.networks.MarsPhoto
@@ -59,6 +61,11 @@ class HomeActivity : AppCompatActivity() {
     fun getJson(view: View) {
         getMarsPhotos()
 
+    }
+    fun wallpaperPage(view: View) {
+        Log.i("Wallpaperpage","transfer to wallpaper page")
+        var hIntent: Intent = Intent(this, WallpaperActivity::class.java)
+        startActivity(hIntent)
     }
 
 }

@@ -1,12 +1,14 @@
-import com.example.androidapp.networks.MarsPhoto
+package com.example.androidapp.networks
+
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 private const val BASE_URL =
-    "https://android-kotlin-fun-mars-server.appspot.com"
+    "https://api.unsplash.com/"
 
 
 private val moshi = Moshi.Builder()
@@ -18,13 +20,17 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
-interface MarsApiService {
+interface unsplashAPI {
     @GET("photos")
-    suspend fun getPhotos():List<MarsPhoto>
+    suspend fun getWallpapers(
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 20,
+        @Query("client_id") clientId: String = "IojT_6PG4G1kLmK2meO27dFQGz39z9vZyax1zFsAOiY"
+    ):List<Wallpapers>
 }
 //api = function = method
-object MarsApi {
-    val retrofitService : MarsApiService by  lazy {
-        retrofit.create(MarsApiService::class.java)
+object UnplashApi {
+    val retrofitService : unsplashAPI by  lazy {
+        retrofit.create(unsplashAPI::class.java)
     }
 }

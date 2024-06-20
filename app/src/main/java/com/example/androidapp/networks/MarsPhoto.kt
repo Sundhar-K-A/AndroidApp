@@ -1,8 +1,6 @@
 package com.example.androidapp.networks
 
 import com.squareup.moshi.Json
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 
 data class MarsPhoto(
