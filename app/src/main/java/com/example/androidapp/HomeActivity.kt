@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidapp.databinding.ActivityHomeBinding
 import kotlinx.coroutines.GlobalScope
@@ -20,10 +21,11 @@ import kotlinx.coroutines.Dispatchers
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var homeTextView: TextView
-    private lateinit var binding: ActivityHomeBinding
+//    private lateinit var binding: ActivityHomeBinding
     //lateinit var myMarsRecyclerView: RecyclerView
     lateinit var marsAdapter: MarsAdapter
     lateinit var photos:List<MarsPhoto>
+    val photoMarsDatabinding = MarsPhoto("001","moonimage.com")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,13 +33,13 @@ class HomeActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_home)
 
 
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        homeTextView = findViewById(R.id.tvWelcomeHome)//username importing
+//        binding = ActivityHomeBinding.inflate(layoutInflater)
+//        val view = binding.root
+//        setContentView(view)
+        val binding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        binding.marsphotoxml = photoMarsDatabinding
 
-        // imageView = findViewById(R.id.imageView)
-        // marsRecyclerView = findViewById(R.id.recyclerViewUrls)
+        homeTextView = findViewById(R.id.tvWelcomeHome)//username importing
         binding.recyclerViewUrls.layoutManager = LinearLayoutManager(this)
         photos = ArrayList()
         marsAdapter = MarsAdapter(photos)
