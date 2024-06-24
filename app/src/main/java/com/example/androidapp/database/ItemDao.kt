@@ -12,7 +12,7 @@ import androidx.room.OnConflictStrategy
 interface ItemDao {
     //crud
 
-    @Insert //insert into item(.name,price,)
+    @Insert
     suspend fun insert(groceryItem: Item)
 
     @Update
@@ -21,11 +21,13 @@ interface ItemDao {
     @Delete
     suspend fun delete(item: Item)
 
-    @Query("SELECT * from item WHERE id = :itemId")
+    @Query("SELECT * from item WHERE itemId = :itemId")
     fun getItem(itemId: Int): Flow<Item>
 
     @Query("SELECT * from item ORDER BY name ASC")
     fun getItems(): Flow<List<Item>>
 
+    @Query("DELETE FROM item")
+    suspend fun clearAllItems()
 
 }

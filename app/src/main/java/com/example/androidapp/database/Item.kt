@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity  //create table item(id integer,name,price,quantity)
+@Entity
 data class Item (
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    val itemId: Int = 0,
     @ColumnInfo(name = "name")
     val itemName: String,
     @ColumnInfo(name = "price")

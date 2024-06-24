@@ -18,7 +18,7 @@ abstract class ItemRoomDatabase:RoomDatabase() {
             return INSTANCE ?: synchronized(this) {    //synchronized block
                 val instance = Room.databaseBuilder(context.applicationContext,
                     ItemRoomDatabase::class.java,
-                    "item_database")
+                    "item_database_2")
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
