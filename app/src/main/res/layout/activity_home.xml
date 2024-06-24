@@ -24,59 +24,18 @@
             android:layout_marginBottom="30dp"
             android:text="TextView"
             android:textSize="32sp"
-            app:layout_constraintBottom_toTopOf="@+id/wallpaperBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnGet"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="33dp"
-            android:onClick="getJson"
-            android:text="Get Mars Images"
-            app:layout_constraintBaseline_toBaselineOf="@+id/wallpaperBtn"
-            app:layout_constraintEnd_toStartOf="@+id/wallpaperBtn"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewUrls"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/btnDbInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="168dp"
+            android:text="insert db"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wallpaperBtn" />
-
-        <Button
-            android:id="@+id/wallpaperBtn"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="11dp"
-            android:layout_marginBottom="70dp"
-            android:text="wallpapers"
-            android:onClick="wallpaperPage"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerViewUrls"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnGet"
-            app:layout_constraintTop_toBottomOf="@+id/tvWelcomeHome" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="129dp"
-            android:layout_height="37dp"
-            android:layout_marginBottom="40dp"
-            android:text="@{marsphotoxml.imgSrc}"
-            app:layout_constraintBottom_toTopOf="@+id/wallpaperBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.84"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

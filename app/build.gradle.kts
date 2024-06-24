@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10" apply true
+    id("kotlin-kapt")
 }
 
 android {
@@ -11,6 +12,7 @@ android {
         viewBinding = true
         dataBinding = true
     }
+
     defaultConfig {
         applicationId = "com.example.androidapp"
         minSdk = 24
@@ -59,4 +61,7 @@ dependencies {
     implementation ("com.squareup.moshi:moshi-kotlin:1.13.0")
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation ("io.coil-kt:coil:1.1.1")
+    implementation("androidx.room:room-common:2.6.0")
+    implementation("androidx.room:room-ktx:2.6.0")
+    kapt ("androidx.room:room-compiler:2.6.0")
 }
