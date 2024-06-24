@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import com.example.androidapp.database.Item
 import com.example.androidapp.database.ItemDao
 import com.example.androidapp.database.ItemRoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 
 
 class HomeActivity : AppCompatActivity() {
@@ -30,13 +32,24 @@ class HomeActivity : AppCompatActivity() {
         binding.btnDbInsert.setOnClickListener{
             insertDataDb()
         }
-
-        val data = intent.extras?.getString("nkey")
-        binding.tvWelcomeHome.text = "welcome $data"//Welcome the user
+        binding.btnFind.setOnClickListener{
+            findItemDb(10)
+        }
     }
+
+    private fun findItemDb(id: Int) {
+        GlobalScope.launch(Dispatchers.Main) {
+            var item = dao.getItem(id).first()
+            binding.tvWelcomeHome.setText(item.itemName)
+        }
+    }
+
+//        val data = intent.extras?.getString("nkey")
+//        homeTextView.text = "welcome $data"//Welcome the user
+
     private fun insertDataDb() {
         GlobalScope.launch {
-            var item = Item(21,"fruits",11.11,11)
+            var item = Item(10,"fruits",11.11,11)
             dao.insert(item)
         }
     }
