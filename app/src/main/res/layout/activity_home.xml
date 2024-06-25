@@ -27,6 +27,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/tvHome"
+            android:layout_width="102dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="72dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/btnFind"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.699"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.098" />
+
+        <Button
+            android:id="@+id/btnInc"
+            android:layout_width="69dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="24dp"
+            android:text="Inc"
+            app:layout_constraintBottom_toTopOf="@+id/btnFind"
+            app:layout_constraintStart_toEndOf="@+id/tvHome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.589" />
+
         <Button
             android:id="@+id/btnDbInsert"
             android:layout_width="wrap_content"
@@ -55,5 +79,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnDbInsert" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

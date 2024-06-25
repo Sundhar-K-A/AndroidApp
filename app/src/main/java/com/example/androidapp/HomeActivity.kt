@@ -3,6 +3,7 @@ package com.example.androidapp
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,10 +11,11 @@ import com.example.androidapp.database.Item
 import com.example.androidapp.database.ItemDao
 import com.example.androidapp.database.ItemRoomDatabase
 import com.example.androidapp.databinding.ActivityHomeBinding
+import com.example.androidapp.adapters.ItemAdapter
+import com.example.androidapp.viewmodel.HomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.example.androidapp.adapters.ItemAdapter
 import android.util.Log
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
@@ -23,6 +25,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var dao: ItemDao
     private lateinit var itemAdapter: ItemAdapter
+    private val viewModel: HomeViewModel by viewModels() // ViewModel initialization
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,7 @@ class HomeActivity : AppCompatActivity() {
         val database = ItemRoomDatabase.getDatabase(this)
         dao = database.itemDao()
         homeTextView = findViewById(R.id.tvWelcomeHome)
+        binding.tvHome.text = viewModel.count.toString()
 
         // Initialize RecyclerView and adapter
         itemAdapter = ItemAdapter(emptyList())
@@ -47,6 +51,11 @@ class HomeActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 getAllItems()
             }
+        }
+
+        binding.btnInc.setOnClickListener {
+            viewModel.incrementCount()
+            binding.tvHome.text = viewModel.count.toString()
         }
 
         binding.btnFind.setOnClickListener {
@@ -64,7 +73,7 @@ class HomeActivity : AppCompatActivity() {
                 if (item != null) {
                     binding.tvWelcomeHome.text = item.itemName
                 } else {
-                    binding.tvWelcomeHome.text = "Item notfound"
+                    binding.tvWelcomeHome.text = "Item not found"
                 }
             }
         }
@@ -72,7 +81,6 @@ class HomeActivity : AppCompatActivity() {
 
     private fun insertDataDb() {
         lifecycleScope.launch {
-//            val item=Item(10, "Fruits", 11.11, 10)
             val items = listOf(
                 Item(10, "Fruits", 11.11, 10),
                 Item(11, "Vegetables", 8.50, 15),
@@ -91,11 +99,10 @@ class HomeActivity : AppCompatActivity() {
                     dao.insert(item)
                     Log.d("HomeActivity", "Inserted item: $item") // Log inserted item
                 }
-//                dao.insert(item)
-//                Log.d("HomeActivity", "Inserted item: $item") // Log inserted item
             }
         }
     }
+
     private fun clearDatabase() {
         lifecycleScope.launch {
             withContext(Dispatchers.IO) {
