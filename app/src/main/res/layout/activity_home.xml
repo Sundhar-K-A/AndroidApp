@@ -27,29 +27,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvHome"
-            android:layout_width="102dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="72dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/btnFind"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.699"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.098" />
 
         <Button
-            android:id="@+id/btnInc"
-            android:layout_width="69dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="24dp"
-            android:text="Inc"
+            android:id="@+id/btnWord"
+            android:layout_width="132dp"
+            android:layout_height="46dp"
+            android:text="Add Word"
             app:layout_constraintBottom_toTopOf="@+id/btnFind"
-            app:layout_constraintStart_toEndOf="@+id/tvHome"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.956"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.589" />
+            app:layout_constraintVertical_bias="0.58" />
 
         <Button
             android:id="@+id/btnDbInsert"
@@ -63,9 +52,9 @@
 
         <Button
             android:id="@+id/btnFind"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="68dp"
+            android:layout_width="120dp"
+            android:layout_height="43dp"
+            android:layout_marginEnd="24dp"
             android:text="find"
             app:layout_constraintBaseline_toBaselineOf="@+id/btnDbInsert"
             app:layout_constraintEnd_toEndOf="parent" />

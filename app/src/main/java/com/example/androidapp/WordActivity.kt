@@ -3,6 +3,7 @@ package com.example.androidapp
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,6 +31,7 @@ class WordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_word)
+        Log.d("WordActivity", "WordActivity started")
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = WordListAdapter()
         recyclerView.adapter = adapter
@@ -52,7 +54,7 @@ class WordActivity : AppCompatActivity() {
     private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.getStringExtra(ShowWordActivity.EXTRA_REPLY)?.let { reply ->
-                val word = Word(reply)
+                val word = Word(word =reply)
                 wordViewModel.insert(word)
             }
         } else {

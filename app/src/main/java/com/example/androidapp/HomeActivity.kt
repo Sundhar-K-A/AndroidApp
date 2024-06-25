@@ -1,5 +1,6 @@
 package com.example.androidapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -25,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var dao: ItemDao
     private lateinit var itemAdapter: ItemAdapter
-    private val viewModel: HomeViewModel by viewModels() // ViewModel initialization
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,8 @@ class HomeActivity : AppCompatActivity() {
         val database = ItemRoomDatabase.getDatabase(this)
         dao = database.itemDao()
         homeTextView = findViewById(R.id.tvWelcomeHome)
-        binding.tvHome.text = viewModel.count.toString()
+        val uname = intent.extras?.getString("nkey")
+        homeTextView.text = "Welcome $uname"
 
         // Initialize RecyclerView and adapter
         itemAdapter = ItemAdapter(emptyList())
@@ -53,9 +55,13 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        binding.btnInc.setOnClickListener {
-            viewModel.incrementCount()
-            binding.tvHome.text = viewModel.count.toString()
+        binding.btnWord.setOnClickListener {
+            try {
+                val intent = Intent(this, WordActivity::class.java)
+                startActivity(intent)
+            } catch (e: Exception) {
+                Log.e("HomeActivity", "Error starting WordActivity", e)
+            }
         }
 
         binding.btnFind.setOnClickListener {
@@ -97,7 +103,7 @@ class HomeActivity : AppCompatActivity() {
             withContext(Dispatchers.IO) {
                 items.forEach { item ->
                     dao.insert(item)
-                    Log.d("HomeActivity", "Inserted item: $item") // Log inserted item
+                    Log.d("HomeActivity", "Inserted item: $item")
                 }
             }
         }
@@ -112,13 +118,13 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private suspend fun getAllItems() {
-        Log.d("HomeActivity", "Fetching all items") // Log fetching attempt
+        Log.d("HomeActivity", "Fetching all items")
         val items = withContext(Dispatchers.IO) {
             dao.getItems().first()
         }
         withContext(Dispatchers.Main) {
             itemAdapter.updateItems(items)
-            Log.d("HomeActivity", "Updated RecyclerView with ${items.size} items") // Log update
+            Log.d("HomeActivity", "Updated RecyclerView with ${items.size} items")
         }
     }
 }
