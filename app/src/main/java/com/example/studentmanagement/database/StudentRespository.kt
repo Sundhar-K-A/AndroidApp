@@ -12,4 +12,7 @@ class StudentRespository(private val studentDao: StudentDao) {
     suspend fun insert(student: Student) {
         studentDao.insert(student)
     }
+    fun getStudentByData(searchString: String): Flow<List<Student>> {
+        return studentDao.getStudentByData("%$searchString%")
+    }
 }

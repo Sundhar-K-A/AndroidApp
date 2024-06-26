@@ -18,8 +18,8 @@ interface StudentDao {
     @Query("DELETE FROM student_table WHERE regno = :regno")
     suspend fun deleteStudentByRegno(regno: String)
 
-    @Query("""SELECT * FROM student_table WHERE regno = :regno OR name = :name OR email = :email OR cgpa = :cgpa""")
-    fun getStudentByData(regno: String?, name: String?, email: String?, cgpa: Double?): Flow<Student?>
+    @Query("SELECT * FROM student_table WHERE regno LIKE :searchString OR name LIKE :searchString OR email LIKE :searchString OR cgpa LIKE :searchString")
+    fun getStudentByData(searchString: String): Flow<List<Student>>
 
     @Update
     suspend fun updateStudent(student: Student)

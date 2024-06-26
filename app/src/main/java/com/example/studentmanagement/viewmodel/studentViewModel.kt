@@ -16,6 +16,9 @@
         fun insert(student: Student) = viewModelScope.launch {
             repository.insert(student)
         }
+        fun getStudentByData(searchString: String): LiveData<List<Student>> {
+            return repository.getStudentByData(searchString).asLiveData()
+        }
     }
 
     class studentViewModelFactory(private val repository: StudentRespository) : ViewModelProvider.Factory {
