@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Student Management</string>
+    <string name="Add">Add student</string>
+    <string name="Search">Search student</string>
+</resources>

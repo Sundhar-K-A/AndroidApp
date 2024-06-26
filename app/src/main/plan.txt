@@ -1,0 +1,30 @@
+Student management app
+
+Database:
+
+Name
+Regno - Pk
+email
+CGPA
+
+
+
+Functions
+
+Add
+delete
+search
+details
+
+
+files
+
+database-3
+activity-3 (main and search and adding)
+
+main: add and search btn (top right) and recycler view
+search : search bar and recycler view
+adding: four input place for name,regno,email,cgpa
+
+
+
