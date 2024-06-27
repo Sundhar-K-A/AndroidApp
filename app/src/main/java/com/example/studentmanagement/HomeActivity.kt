@@ -2,6 +2,7 @@ package com.example.studentmanagement
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studentmanagement.adapter.StudentAdapter
 import com.example.studentmanagement.application.StudentsApplication
+import com.example.studentmanagement.database.Student
 import com.example.studentmanagement.viewmodel.StudentViewModel
 import com.example.studentmanagement.viewmodel.studentViewModelFactory
 
@@ -23,9 +25,19 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         supportActionBar?.title = "Student Management"
-        val studentsApplication = application as StudentsApplication
         val recyclerView = findViewById<RecyclerView>(R.id.rvStudent)
-        val adapter = StudentAdapter()
+        val onClick: (Student) -> Unit = { student ->
+            Log.d("HomeActivity", "Student clicked: $student")
+            val intent = Intent(this, ViewStudentActivity::class.java).apply {
+                putExtra("STUDENT_REGNO", student.regno)
+                putExtra("STUDENT_NAME", student.studentName)
+                putExtra("STUDENT_EMAIL", student.studentEmail)
+                putExtra("STUDENT_CGPA", student.studentCGPA)
+            }
+            startActivity(intent)
+        }
+
+        val adapter = StudentAdapter(onClick)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         studentViewModel.allStudent.observe(this) { words->

@@ -1,5 +1,6 @@
 package com.example.studentmanagement
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +21,7 @@ class SearchActivity : AppCompatActivity() {
         studentViewModelFactory((application as StudentsApplication).repository)
     }
     private lateinit var adapter: StudentAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,19 +32,27 @@ class SearchActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        adapter = StudentAdapter()
+
+        adapter = StudentAdapter { student ->
+            val intent = Intent(this, ViewStudentActivity::class.java).apply {
+                putExtra("STUDENT_REGNO", student.regno)
+                putExtra("STUDENT_NAME", student.studentName)
+                putExtra("STUDENT_EMAIL", student.studentEmail)
+                putExtra("STUDENT_CGPA", student.studentCGPA)
+            }
+            startActivity(intent)
+        }
+
         binding.rvSearch.layoutManager = LinearLayoutManager(this)
         binding.rvSearch.adapter = adapter
-        binding.btnSearch.setOnClickListener{
+
+        binding.btnSearch.setOnClickListener {
             val searchString = binding.tvSearch.text.toString()
-            Log.d("SearchActivity", "Search string: $searchString")
             val tvSearchResultsText = "Search results for '$searchString'"
             binding.tvSearchResults.text = tvSearchResultsText
             studentViewModel.getStudentByData(searchString).observe(this) { students ->
-                Log.d("Sea][rchActivity", "Search results: $students")
                 students?.let { adapter.submitList(it) }
             }
-
         }
     }
 }
